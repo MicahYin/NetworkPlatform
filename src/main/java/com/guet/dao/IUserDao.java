@@ -1,6 +1,8 @@
 package com.guet.dao;
 
+import com.guet.domain.User;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
  * @author MicahYin
@@ -8,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IUserDao {
+    public List<User> findAll();;
 }
