@@ -1,13 +1,10 @@
 package com.guet.controller;
 
-import com.guet.domain.User;
 import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 /**
  * @author MicahYin
@@ -21,8 +18,8 @@ public class UserController {
     private IUserService userService;
     @RequestMapping("/findAll")
     public String findAll(Model model){
-        List<User> accounts = userService.findAll();
-        model.addAttribute("list",accounts);
+//        List<User> accounts = userService.findAll();
+//        model.addAttribute("list",accounts);
         return "list";
     }
 }
