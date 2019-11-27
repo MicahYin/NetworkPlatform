@@ -13,16 +13,11 @@
     <security:http pattern="/css/**" security="none"/>
     <security:http pattern="/img/**" security="none"/>
     <security:http pattern="/plugins/**" security="none"/>
-
+    <!--开启jsr250注解-->
     <security:global-method-security jsr250-annotations="enabled"/>
-    <!--
-    	配置具体的规则
-    	auto-config="true"	不用自己编写登录的页面，框架提供默认登录页面
-    	use-expressions="false"	是否使用SPEL表达式（没学习过）
-    -->
     <security:http auto-config="true" use-expressions="true">
         <!-- 配置具体的拦截的规则 pattern="请求路径的规则" access="访问系统的人，必须有ROLE_USER的角色" -->
-        <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_S')"/>
+        <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
 
         <!-- 定义跳转的具体的页面 -->
         <security:form-login

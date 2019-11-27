@@ -35,7 +35,6 @@ public class IUserServiceImp implements IUserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        User user=new User(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
         User user=new User(userInfo.getUsername(),userInfo.getPassword(),userInfo.getStatus()==1,true,true,true,getAuthority(userInfo.getRoles()));
         return user;
     }

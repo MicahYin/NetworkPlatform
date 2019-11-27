@@ -10,7 +10,6 @@ public class Role {
     private String id;
     private String roleName;
     private String roleDesc;
-    private List<Permission> permissions;
     private List<UserInfo> users;
 
     public String getId() {
@@ -35,14 +34,6 @@ public class Role {
 
     public void setRoleDesc(String roleDesc) {
         this.roleDesc = roleDesc;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
     }
 
     public List<UserInfo> getUsers() {
