@@ -85,7 +85,7 @@
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
+					href="${pageContext.request.contextPath}/account/findAll.do">用户管理</a></li>
 
 				<li class="active">全部用户</li>
 			</ol>
@@ -135,11 +135,11 @@
 										<th class="" style="padding-right: 0px"><input
 											id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
-										<th class="sorting_asc">ID</th>
-										<th class="sorting_desc">用户名</th>
-										<th class="sorting_asc sorting_asc_disabled">邮箱</th>
-										<th class="sorting_desc sorting_desc_disabled">联系电话</th>
-										<th class="sorting">状态</th>
+										<th class="text-center">ID</th>
+										<th class="text-center">用户名</th>
+										<th class="text-center">邮箱</th>
+										<th class="text-center">联系电话</th>
+										<th class="text-center">状态</th>
 										<th class="text-center">操作</th>
 									</tr>
 								</thead>
@@ -148,11 +148,11 @@
 									<c:forEach items="${userList}" var="user">
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
-											<td>${user.id }</td>
-											<td>${user.username }</td>
-											<td>${user.email }</td>
-											<td>${user.phoneNum }</td>
-											<td>${user.statusStr }</td>											
+											<td class="text-center">${user.id }</td>
+											<td class="text-center">${user.username }</td>
+											<td class="text-center">${user.email }</td>
+											<td class="text-center">${user.phoneNum }</td>
+											<td class="text-center">${user.statusStr }</td>
 											<td class="text-center">
 												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
 												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>

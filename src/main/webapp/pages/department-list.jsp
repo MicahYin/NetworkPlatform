@@ -62,32 +62,27 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-
 	<div class="wrapper">
-
 		<!-- 页面头部 -->
 		<jsp:include page="header.jsp"></jsp:include>
 		<!-- 页面头部 /-->
-
 		<!-- 导航侧栏 -->
 		<jsp:include page="aside.jsp"></jsp:include>
 		<!-- 导航侧栏 /-->
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
 
 			<!-- 内容头部 -->
 			<section class="content-header">
 			<h1>
-				角色管理 <small>全部角色</small>
+				单位管理 <small>全部单位</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/role/findAll.do">角色管理</a></li>
-
-				<li class="active">全部角色</li>
+					href="${pageContext.request.contextPath}/department/findAll.do">单位管理</a></li>
+				<li class="active">全部单位</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->
@@ -108,7 +103,7 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/role-add.jsp'">
+										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										
@@ -136,22 +131,31 @@
 											id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
 										<th class="text-center">ID</th>
-										<th class="text-center">角色名称</th>
-										<th class="text-center">描述</th>
-										<th class="text-center">操作</th>
+										<th class="text-center">单位名称</th>
+										<th class="text-center">地址</th>
+										<th class="text-center">单位类型</th>
+										<th class="text-center">负责人</th>
+										<th class="text-center">电话</th>
+										<th class="text-center">网安管理员</th>
+										<th class="text-center">网安管理员电话</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<c:forEach items="${roleList}" var="role">
+									<c:forEach items="${departments}" var="department">
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
-											<td class="text-center">${role.id }</td>
-											<td class="text-center">${role.roleName }</td>
-											<td class="text-center">${role.roleDesc }</td>
+											<td class="text-center">${department.id }</td>
+											<td class="text-center">${department.departName }</td>
+											<td class="text-center">${department.address }</td>
+											<td class="text-center">${department.departType.roleDesc }</td>
+											<td class="text-center">${department.departCharge }</td>
+											<td class="text-center">${department.phone }</td>
+											<td class="text-center">${department.securityOfficer }</td>
+											<td class="text-center">${department.securityOfficerPhone }</td>
 											<td class="text-center">
-												<a href="${pageContext.request.contextPath}/role/findById.do?id=${role.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/role/findRoleByIdAndAllPermission.do?id=${role.id}" class="btn bg-olive btn-xs">添加权限</a>
+												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
+												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
 											</td>
 										</tr>
 									</c:forEach>

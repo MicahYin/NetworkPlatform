@@ -1,5 +1,6 @@
 package com.guet.controller;
 
+import com.guet.domain.UserInfo;
 import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 
 /**
@@ -19,12 +21,11 @@ import javax.annotation.security.RolesAllowed;
 public class UserController {
     @Autowired
     private IUserService userService;
-    @RequestMapping("/findAll")
-    @ResponseBody
-    @RolesAllowed("ADMIN")
-    public String findAll(Model model){
-//        List<User> accounts = userService.findAll();
-//        model.addAttribute("list",accounts);
-        return "jdsfhvjkdbnv";
+
+    @RequestMapping("/findAll.do")
+    public String findAll(Model model) throws Exception{
+        List<UserInfo> accounts = userService.findAll();
+        model.addAttribute("userList",accounts);
+        return "user-list";
     }
 }

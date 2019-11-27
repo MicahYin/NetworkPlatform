@@ -10,7 +10,6 @@ public class Role {
     private String id;
     private String roleName;
     private String roleDesc;
-    private List<UserInfo> users;
 
     public String getId() {
         return id;
@@ -36,11 +35,12 @@ public class Role {
         this.roleDesc = roleDesc;
     }
 
-    public List<UserInfo> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserInfo> users) {
-        this.users = users;
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id='" + id + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleDesc='" + roleDesc + '\'' +
+                '}';
     }
 }

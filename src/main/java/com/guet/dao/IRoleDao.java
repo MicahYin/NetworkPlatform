@@ -22,4 +22,15 @@ public interface IRoleDao {
             @Result(property = "roleDesc",column = "roleDesc"),
     })
     List<Role> findRoleByUserId(String id) throws Exception;
+
+    @Select("select * from role where id = (select roleId from department_role where departmentId=#{id})")
+    @Results({
+            @Result(id = true,property = "id",column = "id"),
+            @Result(property = "roleName",column = "roleName"),
+            @Result(property = "roleDesc",column = "roleDesc"),
+    })
+    List<Role> findRoleByDepartmentId(String id) throws Exception;
+
+    @Select("select * from role")
+    List<Role> findAll() throws Exception;
 }

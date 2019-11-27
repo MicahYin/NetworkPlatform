@@ -23,28 +23,26 @@
 					class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
 			<li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
-					<span>系统管理</span> <span class="pull-right-container"> <i
+					<span>用户管理</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
-
-
 			</a>
 				<ul class="treeview-menu">
 					<li id="system-setting">
-						<a href="${pageContext.request.contextPath}/account/findAll.do"> <i
-							class="fa fa-circle-o"></i> 用户管理</a>
+						<a href="${pageContext.request.contextPath}/role/findAll.do"> <i
+							class="fa fa-circle-o"></i> 单位类型管理</a>
 					</li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/role/findAll.do"> <i
-							class="fa fa-circle-o"></i> 角色管理
+						href="${pageContext.request.contextPath}/department/findAll.do"> <i
+							class="fa fa-circle-o"></i> 单位管理
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/permission/findAll.do">
-							<i class="fa fa-circle-o"></i> 资源权限管理
+						href="${pageContext.request.contextPath}/account/findAll.do">
+							<i class="fa fa-circle-o"></i> 用户列表
 					</a></li>
 					<li id="system-setting"><a
 						href="${pageContext.request.contextPath}/sysLog/findAll.do"> <i
-							class="fa fa-circle-o"></i> 访问日志
+							class="fa fa-circle-o"></i> 登录日志
 					</a></li>
 				</ul></li>
 			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>

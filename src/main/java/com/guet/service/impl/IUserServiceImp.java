@@ -42,6 +42,7 @@ public class IUserServiceImp implements IUserService {
     private List<SimpleGrantedAuthority> getAuthority(List<Role> roles){
         List<SimpleGrantedAuthority> list=new ArrayList<>();
         for (Role role:roles){
+            System.out.println(role.getRoleName());
             list.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleName()));
         }
         return list;
