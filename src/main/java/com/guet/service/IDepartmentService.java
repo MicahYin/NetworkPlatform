@@ -17,5 +17,5 @@ public interface IDepartmentService {
      * @return 返回部门集合
      * @throws Exception
      */
-    List<Department> findAll() throws Exception;
+    List<Department> findAll(int page,int size) throws Exception;
 }

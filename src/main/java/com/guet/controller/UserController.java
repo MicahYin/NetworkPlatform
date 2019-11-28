@@ -1,12 +1,16 @@
 package com.guet.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.guet.domain.UserInfo;
 import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
@@ -23,9 +27,13 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping("/findAll.do")
-    public String findAll(Model model) throws Exception{
-        List<UserInfo> accounts = userService.findAll();
-        model.addAttribute("userList",accounts);
-        return "user-list";
+    public ModelAndView findAll(@RequestParam(name = "page",required = true,defaultValue = "1") Integer page,
+                                @RequestParam(name = "size",required = true,defaultValue = "4") Integer size) throws Exception{
+        ModelAndView mv = new ModelAndView();
+        List<UserInfo> accounts = userService.findAll(page,size);
+        PageInfo pageInfo = new PageInfo(accounts);
+        mv.addObject("pageInfo",pageInfo);
+        mv.setViewName("user-list");
+        return mv;
     }
 }

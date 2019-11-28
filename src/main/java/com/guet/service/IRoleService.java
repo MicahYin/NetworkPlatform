@@ -14,5 +14,5 @@ public interface IRoleService {
      * @return
      * @throws Exception
      */
-    List<Role> findAll() throws Exception;
+    List<Role> findAll(int page,int size) throws Exception;
 }

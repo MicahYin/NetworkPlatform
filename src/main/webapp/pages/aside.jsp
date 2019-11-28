@@ -29,19 +29,19 @@
 			</a>
 				<ul class="treeview-menu">
 					<li id="system-setting">
-						<a href="${pageContext.request.contextPath}/role/findAll.do"> <i
+						<a href="${pageContext.request.contextPath}/role/findAll.do?page=1&size=4"> <i
 							class="fa fa-circle-o"></i> 单位类型管理</a>
 					</li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/department/findAll.do"> <i
+						href="${pageContext.request.contextPath}/department/findAll.do?page=1&size=4"> <i
 							class="fa fa-circle-o"></i> 单位管理
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/account/findAll.do">
+						href="${pageContext.request.contextPath}/account/findAll.do?page=1&size=4">
 							<i class="fa fa-circle-o"></i> 用户列表
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/sysLog/findAll.do"> <i
+						href="${pageContext.request.contextPath}/sysLog/findAll.do?page=1&size=4"> <i
 							class="fa fa-circle-o"></i> 登录日志
 					</a></li>
 				</ul></li>

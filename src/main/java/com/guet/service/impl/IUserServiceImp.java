@@ -1,8 +1,11 @@
 package com.guet.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.guet.dao.IUserDao;
 import com.guet.domain.Role;
+import com.guet.domain.SysLog;
 import com.guet.domain.UserInfo;
+import com.guet.service.ISysLogService;
 import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,8 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +26,13 @@ import java.util.List;
  * @date 2019/10/17 21:27
  */
 @Service("userService")
+@Transactional
 public class IUserServiceImp implements IUserService {
+    @Autowired
+    private ISysLogService sysLogService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private IUserDao userDao;
@@ -36,20 +48,33 @@ public class IUserServiceImp implements IUserService {
             e.printStackTrace();
         }
         User user=new User(userInfo.getUsername(),userInfo.getPassword(),userInfo.getStatus()==1,true,true,true,getAuthority(userInfo.getRoles()));
+        //记录登录日志
+        SysLog sysLog=new SysLog();
+        Date visitTime=new Date();
+        sysLog.setVisitTime(visitTime);
+        sysLog.setUsername(s);
+        //获取访问的ip地址
+        String ip = request.getRemoteAddr();
+        sysLog.setIp(ip);
+        try {
+            sysLogService.save(sysLog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return user;
     }
 
     private List<SimpleGrantedAuthority> getAuthority(List<Role> roles){
         List<SimpleGrantedAuthority> list=new ArrayList<>();
         for (Role role:roles){
-            System.out.println(role.getRoleName());
             list.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleName()));
         }
         return list;
     }
 
     @Override
-    public List<UserInfo> findAll() throws Exception {
+    public List<UserInfo> findAll(int page,int size) throws Exception {
+        PageHelper.startPage(page,size);
         return userDao.findAll();
     }
 

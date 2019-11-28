@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="all-admin-index.html"><b>ITCAST</b>网络应急响应平台</a>
+			<a href="all-admin-index.html"><b>网络应急响应平台</b></a>
 		</div>
 		<div class="login-box-body">
 			<p class="login-box-msg">登录系统</p>

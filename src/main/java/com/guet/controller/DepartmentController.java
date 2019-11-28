@@ -1,5 +1,6 @@
 package com.guet.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.guet.dao.IRoleDao;
 import com.guet.domain.Department;
 import com.guet.domain.Role;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -21,10 +24,14 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
 
-    @RequestMapping("findAll.do")
-    public String findAll(Model model) throws Exception{
-        List<Department> departments=departmentService.findAll();
-        model.addAttribute("departments",departments);
-        return "department-list";
+    @RequestMapping("/findAll.do")
+    public ModelAndView findAll(@RequestParam(name = "page",required = true,defaultValue = "1") Integer page,
+                                @RequestParam(name = "size",required = true,defaultValue = "4") Integer size) throws Exception{
+        ModelAndView mv = new ModelAndView();
+        List<Department> departments=departmentService.findAll(page,size);
+        PageInfo pageInfo = new PageInfo(departments);
+        mv.addObject("pageInfo",pageInfo);
+        mv.setViewName("department-list");
+        return mv;
     }
 }

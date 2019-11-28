@@ -37,7 +37,7 @@
                 <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
                         <props>
-                            <prop key="helperDialect">oracle</prop>
+                            <prop key="helperDialect">mysql</prop>
                             <prop key="reasonable">true</prop>
                         </props>
                     </property>
@@ -56,14 +56,5 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <!--配置事物通知-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="*" isolation="DEFAULT"/>
-        </tx:attributes>
-    </tx:advice>
-    <!--配置AOP增强-->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.guet.service.impl.*ServiceImpl.*(..))"/>
-    </aop:config>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
