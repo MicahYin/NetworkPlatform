@@ -14,6 +14,7 @@ public class UserInfo {
     private String phoneNum;
     private int status;
     private String statusStr;
+    private String department;
     private List<Role> roles;
 
     public String getId() {
@@ -82,5 +83,13 @@ public class UserInfo {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

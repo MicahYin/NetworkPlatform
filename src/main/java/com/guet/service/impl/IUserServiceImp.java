@@ -82,6 +82,7 @@ public class IUserServiceImp implements IUserService {
     public void save(UserInfo user) throws Exception {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
+        userDao.saveUserDepartment(user);
     }
 
     @Override

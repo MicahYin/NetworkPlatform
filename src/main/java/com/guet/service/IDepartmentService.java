@@ -13,9 +13,23 @@ import java.util.List;
 
 public interface IDepartmentService {
     /**
-     * 查询所有的部门
+     * 分页查询所有的部门
      * @return 返回部门集合
      * @throws Exception
      */
     List<Department> findAll(int page,int size) throws Exception;
+
+    /**
+     * 新增部门
+     * @param department
+     * @throws Exception
+     */
+    void  save(Department department) throws Exception;
+
+    /**
+     * 不分页的查询所有部门
+     * @return
+     * @throws Exception
+     */
+    List<Department> findAll() throws Exception;
 }

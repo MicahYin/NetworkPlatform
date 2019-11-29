@@ -1,3 +1,4 @@
+<%@ taglib prefix="for" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -86,59 +87,58 @@
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/account/findAll.do">用户管理</a></li>
-				<li class="active">用户表单</li>
+					href="${pageContext.request.contextPath}/department/findAll.do">单位管理</a></li>
+				<li class="active">单位表单</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="${pageContext.request.contextPath}/account/save.do"
-				method="post">
+			<form action="${pageContext.request.contextPath}/department/save.do" method="post">
 				<!-- 正文区域 -->
-				<section class="content"> <!--产品信息-->
+				<section class="content">
 
 				<div class="panel panel-default">
-					<div class="panel-heading">用户信息</div>
+					<div class="panel-heading">单位信息</div>
 					<div class="row data-type">
-
-						<div class="col-md-2 title">用户名称</div>
+						<div class="col-md-2 title">单位名称</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="username"
-								placeholder="用户名称" value="">
+							<input type="text" class="form-control" name="departName"
+								placeholder="单位名称" value="">
 						</div>
-						<div class="col-md-2 title">密码</div>
-						<div class="col-md-4 data">
-							<input type="password" class="form-control" name="password"
-								placeholder="密码" value="">
-						</div>
-						<div class="col-md-2 title">邮箱</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="email"
-								placeholder="邮箱" value="">
-						</div>
-						<div class="col-md-2 title">联系电话</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="phoneNum"
-								placeholder="联系电话" value="">
-						</div>
-						<div class="col-md-2 title">用户部门</div>
+						<div class="col-md-2 title">单位类型</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
-									name="department">
-								<c:forEach items="${departmentList}" var="department">
-									<option value="${department.id}">${department.departName}</option>
+									name="departTypeStr">
+								<c:forEach items="${roleList}" var="role">
+									<option value="${role.id}">${role.roleDesc}</option>
 								</c:forEach>
 							</select>
 						</div>
-						<div class="col-md-2 title">用户状态</div>
+						<div class="col-md-2 title">地址</div>
 						<div class="col-md-4 data">
-							<select class="form-control select2" style="width: 100%"
-								name="status">
-								<option value="0" selected="selected">关闭</option>
-								<option value="1">开启</option>
-							</select>
+							<input type="text" class="form-control" name="address"
+								placeholder="地址" value="">
 						</div>
-
+						<div class="col-md-2 title">负责人</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="departCharge"
+								placeholder="负责人" value="">
+						</div>
+						<div class="col-md-2 title">电话</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="phone"
+								   placeholder="电话" value="">
+						</div>
+						<div class="col-md-2 title">网安管理员</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="SecurityOfficer"
+								   placeholder="网安管理员" value="">
+						</div>
+						<div class="col-md-2 title">网安管理员电话</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="SecurityOfficerPhone"
+								   placeholder="网安管理员电话" value="">
+						</div>
 					</div>
 				</div>
 				<!--订单信息/--> <!--工具栏-->

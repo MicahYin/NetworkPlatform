@@ -1,10 +1,7 @@
 package com.guet.dao;
 
 import com.guet.domain.UserInfo;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -40,9 +37,18 @@ public interface IUserDao {
     UserInfo findByUsername(String username) throws Exception;
 
     /**
-     * 保存新用户
+     * 保存新用户到user表
      * @param user
      * @throws Exception
      */
+    @Insert("insert into users(email,username,password,phoneNum,status) values(#{email},#{username},#{password},#{phoneNum},#{status})")
     void save(UserInfo user) throws Exception;
+
+    /**
+     * 将用户所属的部门保存到department_user
+     * @param user
+     * @throws Exception
+     */
+    @Insert("insert into department_user(departmentId,userId) values(#{department},(SELECT id FROM users WHERE username=#{username}))")
+    void saveUserDepartment(UserInfo user) throws Exception;
 }

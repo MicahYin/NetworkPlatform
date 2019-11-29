@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Repository
 public interface IRoleDao {
-    @Select("select * from role where id in (select roleId from users_role where userId=#{id})")
+    @Select("select * from role where id in (select roleId from department_role where departmentId=(select departmentId from department_user where userId=#{id}))")
     @Results({
             @Result(id = true,property = "id",column = "id"),
             @Result(property = "roleName",column = "roleName"),
@@ -23,7 +23,7 @@ public interface IRoleDao {
     })
     List<Role> findRoleByUserId(String id) throws Exception;
 
-    @Select("select * from role where id = (select roleId from department_role where departmentId=#{id})")
+    @Select("select * from role where id = (select roleId from department_role where departmentId=#{id} and roleId!=6)")
     @Results({
             @Result(id = true,property = "id",column = "id"),
             @Result(property = "roleName",column = "roleName"),

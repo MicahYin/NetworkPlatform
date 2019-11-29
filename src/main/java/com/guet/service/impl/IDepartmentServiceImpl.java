@@ -26,4 +26,15 @@ public class IDepartmentServiceImpl implements IDepartmentService{
         PageHelper.startPage(page,size);
         return departmentDao.findAll();
     }
+
+    @Override
+    public void save(Department department) throws Exception {
+        departmentDao.save(department);
+        departmentDao.saveDepartmentRole(department);
+    }
+
+    @Override
+    public List<Department> findAll() throws Exception {
+        return departmentDao.findAll();
+    }
 }

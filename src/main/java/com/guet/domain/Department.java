@@ -9,7 +9,7 @@ public class Department {
     private String departName;
     //单位类型
     private Role departType;
-
+    private String departTypeStr;
     private String address;
     private String departCharge;
     private String phone;
@@ -80,12 +80,21 @@ public class Department {
         SecurityOfficerPhone = securityOfficerPhone;
     }
 
+    public String getDepartTypeStr() {
+        return departTypeStr;
+    }
+
+    public void setDepartTypeStr(String departTypeStr) {
+        this.departTypeStr = departTypeStr;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", departName='" + departName + '\'' +
                 ", departType=" + departType +
+                ", departTypeStr='" + departTypeStr + '\'' +
                 ", address='" + address + '\'' +
                 ", departCharge='" + departCharge + '\'' +
                 ", phone='" + phone + '\'' +

@@ -23,6 +23,8 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
+    @Autowired
+    private IRoleDao roleDao;
 
     @RequestMapping("/findAll.do")
     public ModelAndView findAll(@RequestParam(name = "page",required = true,defaultValue = "1") Integer page,
@@ -33,5 +35,19 @@ public class DepartmentController {
         mv.addObject("pageInfo",pageInfo);
         mv.setViewName("department-list");
         return mv;
+    }
+
+    @RequestMapping("/add.do")
+    public ModelAndView add() throws Exception{
+        ModelAndView mv = new ModelAndView();
+        List<Role> roleList=roleDao.findAll();
+        mv.addObject("roleList",roleList);
+        mv.setViewName("department-add");
+        return mv;
+    }
+    @RequestMapping("/save.do")
+    public String save(Department department) throws Exception{
+        departmentService.save(department);
+        return "redirect:findAll.do";
     }
 }

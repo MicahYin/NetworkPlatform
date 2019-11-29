@@ -25,4 +25,21 @@ public interface IDepartmentDao {
             @Result(property = "departType",column = "id",javaType = java.lang.String.class,one = @One(select = "com.guet.dao.IRoleDao.findRoleByDepartmentId"))
     })
     List<Department> findAll() throws Exception;
+
+    /**
+     * 新建部门，将部门数据插入到department表
+     * @param department
+     * @throws Exception
+     */
+    @Insert("insert into department(departName,address,departCharge,phone,SecurityOfficer,SecurityOfficerPhone) " +
+            "values(#{departName},#{address},#{departCharge},#{phone},#{SecurityOfficer},#{SecurityOfficerPhone})")
+    void save(Department department) throws Exception;
+
+    /**
+     * 保存部门的权限
+     * @param department
+     * @throws Exception
+     */
+    @Insert("insert into department_role(roleId,departmentId) values(#{departTypeStr},(SELECT id FROM department WHERE departName=#{departName})),(6,(SELECT id FROM department WHERE departName=#{departName}))")
+    void saveDepartmentRole(Department department) throws Exception;
 }
