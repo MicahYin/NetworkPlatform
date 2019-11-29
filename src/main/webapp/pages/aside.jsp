@@ -63,6 +63,46 @@
 
 				</ul></li>
 
+
+			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
+				<span>事件发布管理</span> <span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+
+					<li id="system-setting"><a
+							href="${pageContext.request.contextPath}/pages/event_add.jsp">
+						<i class="fa fa-circle-o"></i> 发布预警事件
+					</a></li>
+					<li id="system-setting1"><a
+							href="${pageContext.request.contextPath}/event/eventProcessedList.do?currentPage=1">
+						<i class="fa fa-circle-o"></i> 已处理事件
+					</a></li>
+					<li id="system-setting2"><a
+							href="${pageContext.request.contextPath}/event/eventNotProcessedList.do?currentPage=1">
+						<i class="fa fa-circle-o"></i> 未处理事件
+					</a></li>
+
+				</ul></li>
+			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
+				<span>事件接收管理</span> <span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+
+					<li id="system-setting3"><a
+							href="${pageContext.request.contextPath}/event/eventHaveProcessedList.do?currentPage=1">
+						<i class="fa fa-circle-o"></i> 已处理事件
+					</a></li>
+					<li id="system-setting4"><a
+							href="${pageContext.request.contextPath}/event/eventHaveNotProcessedList.do?currentPage=1">
+						<i class="fa fa-circle-o"></i> 未处理事件
+					</a></li>
+
+				</ul></li>
+
 		</ul>
 	</section>
 	<!-- /.sidebar -->
