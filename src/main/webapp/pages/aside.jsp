@@ -64,7 +64,10 @@
 							href="${pageContext.request.contextPath}/event/eventNotProcessedList.do?currentPage=1">
 						<i class="fa fa-circle-o"></i> 未处理事件
 					</a></li>
-
+					<li id="system-setting2"><a
+							href="${pageContext.request.contextPath}/dataDisplay/show.do">
+						<i class="fa fa-circle-o"></i> 事件数据统计
+					</a></li>
 				</ul></li>
 			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
 				<span>事件接收管理</span> <span class="pull-right-container"> <i
@@ -81,9 +84,7 @@
 							href="${pageContext.request.contextPath}/event/eventHaveNotProcessedList.do?currentPage=1">
 						<i class="fa fa-circle-o"></i> 未处理事件
 					</a></li>
-
 				</ul></li>
-
 		</ul>
 	</section>
 	<!-- /.sidebar -->

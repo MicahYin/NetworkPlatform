@@ -5,7 +5,9 @@ import java.util.List;
 import com.guet.domain.Event;
 import com.guet.domain.Page;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IEventDao {
 	
 	//根据用户名查询用户发布的已处理的信息的事件信息
