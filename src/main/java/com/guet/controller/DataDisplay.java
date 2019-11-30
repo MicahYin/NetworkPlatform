@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+
 /**
  * 用于数据展示
  * @author MicahYin
@@ -18,6 +20,7 @@ public class DataDisplay {
     @Autowired
     private IDataDisplayService dataDisplayService;
     @RequestMapping("/show.do")
+    @RolesAllowed({"A","B"})
     public ModelAndView show() throws Exception{
         ModelAndView mv =new ModelAndView();
         int zero=dataDisplayService.findDataStatusZero();

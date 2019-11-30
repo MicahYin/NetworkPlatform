@@ -51,4 +51,8 @@ public interface IUserDao {
      */
     @Insert("insert into department_user(departmentId,userId) values(#{department},(SELECT id FROM users WHERE username=#{username}))")
     void saveUserDepartment(UserInfo user) throws Exception;
+
+    @Select("select username from users")
+    List<String> getAllUser() throws Exception;
+
 }

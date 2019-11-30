@@ -108,10 +108,10 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建"
+										<%--<button type="button" class="btn btn-default" title="新建"
 											onclick="location.href='product-add.jsp'">
 											<i class="fa fa-file-o"></i> 删除
-										</button>
+										</button>--%>
 									<%--	<button type="button" class="btn btn-default" title="删除">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
@@ -121,17 +121,19 @@
 										<button type="button" class="btn btn-default" title="屏蔽">
 											<i class="fa fa-ban"></i> 屏蔽
 										</button>--%>
-										<button type="button" class="btn btn-default" title="刷新">
+									<form action="${pageContext.request.contextPath}/update/updateNotProcessedList.do">
+										<button type="sumbit" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
+									</form>
 									</div>
 								</div>
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
+									<%--<input type="text" class="form-control input-sm"
 										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+										class="glyphicon glyphicon-search form-control-feedback"></span>--%>
 								</div>
 							</div>
 							<!--工具栏/-->

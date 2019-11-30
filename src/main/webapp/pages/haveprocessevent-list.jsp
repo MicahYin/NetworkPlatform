@@ -109,10 +109,10 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="删除"
+										<%--<button type="button" class="btn btn-default" title="删除"
 											onclick="location.href='product-add.jsp'">
 											<i class="fa fa-file-o"></i> 删除
-										</button>
+										</button>--%>
 									<%--<button type="button" class="btn btn-default" title="转发">
 											<i class="fa fa-trash-o"></i> 转发
 										</button>--%>
@@ -122,17 +122,19 @@
 										<button type="button" class="btn btn-default" title="屏蔽">
 											<i class="fa fa-ban"></i> 屏蔽
 										</button>--%>
+									<form action="${pageContext.request.contextPath}/update/updateHaveProcessedList.doroleName">
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
+									</form>
 									</div>
 								</div>
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
+									<%--<input type="text" class="form-control input-sm"
 										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+										class="glyphicon glyphicon-search form-control-feedback"></span>--%>
 								</div>
 							</div>
 							<!--工具栏/-->
@@ -161,9 +163,9 @@
 										 <th class="sorting_desc">事件类型:${event.eventtype}</th>
 										 <th class="sorting_asc sorting_asc_disabled">事件级别:${event.eventLevel}</th>
 										 <th class="sorting_desc sorting_desc_disabled">发布时间:${event.startDate}</th>
-										 <th class="sorting">完成时间:${event.endDate}</th>
+										 <th class="sorting">完成时间:${event.deadline}</th>
 										 <th class="sorting">事件描述:${event.eventContent}</th>
-										 <th class="sorting">处理结果:</th>
+										 <th class="sorting"><a href="${pageContext.request.contextPath}/event/detail.do?eventID=${event.eventID}">事件详情</a></th>
 										 </th>
 										 <!-- <th class="text-center sorting">状态</th>
                                          <th class="text-center">操作</th> -->

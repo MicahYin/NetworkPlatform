@@ -56,10 +56,12 @@ public interface IEventDao {
 	public Event getEventByID(int eventID);
 
 	//根据转发更新事件信息
-	public void updateEventByForward(@Param("eventID") int eventID, @Param("forwarder") String forward, @Param("forwarderReceiver") String forwarderReceiver);
+	public void updateEventByForward(@Param("eventID") int eventID, @Param("forwarder") String forward,
+									 @Param("forwarderReceiver") String forwarderReceiver,@Param("departmentC") String departmentC);
 
 	//根据邀请更新事件信息
-	public void updateEventByInvitation(@Param("eventID") int eventID, @Param("thirdparty") String thirdparty);
+	public void updateEventByInvitation(@Param("eventID") int eventID, @Param("thirdparty") String thirdparty,
+										@Param("departmentD") String departmentD);
 
 	//提交事件结果D
 	public void updateResultD(Event event);
@@ -69,4 +71,6 @@ public interface IEventDao {
 	public void updateResultB(Event event);
 	//提交事件结果A
 	public void updateResultA(Event event);
+
+	public String getRoleNameByUserName(String userName);
 }

@@ -37,4 +37,13 @@ public class IDepartmentServiceImpl implements IDepartmentService{
     public List<Department> findAll() throws Exception {
         return departmentDao.findAll();
     }
+
+    @Override
+    public List<String> getAllName() throws Exception {
+
+        List<String> departNames = departmentDao.getAllDepart();
+        return departNames;
+    }
+
+
 }

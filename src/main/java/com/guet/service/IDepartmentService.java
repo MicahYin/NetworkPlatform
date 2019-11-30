@@ -32,4 +32,6 @@ public interface IDepartmentService {
      * @throws Exception
      */
     List<Department> findAll() throws Exception;
+
+    List<String> getAllName() throws Exception;
 }

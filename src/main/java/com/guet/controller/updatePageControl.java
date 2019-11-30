@@ -57,7 +57,7 @@ public class updatePageControl {
 
     //获取用户需要处理但是已处理的事件信息
     @RequestMapping("/updateHaveProcessedList.do")
-    public String getHaveProcessedEventByUserName(Model model) {
+    public String getHaveProcessedEventByUserName(Model model) throws Exception {
         //获取用户名
         int currentPage = 1;
         SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
@@ -77,7 +77,7 @@ public class updatePageControl {
 
     //获取用户需要处理但是未处理的事件信息
     @RequestMapping("/updateHaveNotProcessedList.do")
-    public String getHaveNotProcessedEventByUserName(Model model) {
+    public String getHaveNotProcessedEventByUserName(Model model) throws Exception {
         //获取用户名
         int currentPage = 1;
         SecurityContext context = SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户

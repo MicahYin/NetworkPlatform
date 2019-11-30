@@ -1,6 +1,8 @@
 package com.guet.controller;
 
 import com.guet.domain.Page;
+import com.guet.service.IDepartmentService;
+import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,16 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.guet.service.EventService;
 import com.guet.domain.Event;
 
+import javax.annotation.security.RolesAllowed;
+import java.util.List;
+
 @Controller
 @RequestMapping("/event")
 public class EventController {
 	
 	@Autowired
 	EventService eventService;
+    @Autowired
+	IUserService userService;
+    @Autowired
+	IDepartmentService departmentService;
 	
 	//获取用户发布的已处理的事件信息
 	@RequestMapping("/eventProcessedList.do")
-	public String getProcessedEventByUserName(Model model,int currentPage) {
+	@RolesAllowed({"A","B"})
+	public String getProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
 		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user= (User) context.getAuthentication().getPrincipal();
@@ -40,7 +50,8 @@ public class EventController {
 
 	//获取用户发布的未处理的信息
 	@RequestMapping("/eventNotProcessedList.do")
-	public String getNotProcessedEventByUserName(Model model,int currentPage) {
+	@RolesAllowed({"A","B"})
+	public String getNotProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
 		SecurityContext context = SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user = (User) context.getAuthentication().getPrincipal();
@@ -58,7 +69,8 @@ public class EventController {
 
 	//获取用户需要处理但是已处理的事件信息
 	@RequestMapping("/eventHaveProcessedList.do")
-	public String getHaveProcessedEventByUserName(Model model,int currentPage) {
+	@RolesAllowed({"A","B","C","D"})
+	public String getHaveProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
 		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user= (User) context.getAuthentication().getPrincipal();
@@ -77,7 +89,8 @@ public class EventController {
 
 	//获取用户需要处理但是未处理的事件信息
 	@RequestMapping("/eventHaveNotProcessedList.do")
-	public String getHaveNotProcessedEventByUserName(Model model,int currentPage) {
+	@RolesAllowed({"A","B","C","D"})
+	public String getHaveNotProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
 		SecurityContext context = SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user = (User) context.getAuthentication().getPrincipal();
@@ -95,13 +108,16 @@ public class EventController {
 	
 	//发布事件
 	@RequestMapping("/eventPublish.do")
-	public String publishEvent(Model model,Event event) {
+	@RolesAllowed({"A","B"})
+	public String publishEvent(Model model,Event event) throws Exception {
 		//获取用户名
-		/*
-		 * SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
-		 * User user= (User) context.getAuthentication().getPrincipal(); String
-		 * userName=user.getUsername();
-		 */
+
+		 SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
+		 User user= (User) context.getAuthentication().getPrincipal(); String
+		 userName=user.getUsername();
+		 String roleName = eventService.getRoleNameByUserName(userName);
+		 boolean success;
+		 if(roleName.contains("A")) {
 		event.setPublisher(event.getPublisher());
 		event.setDeadline(event.getDeadline());
 		event.setEndDate("0");
@@ -111,14 +127,27 @@ public class EventController {
 		//event.setProgress(event.getHandler()+"正在处理");
 		event.setStartDate(event.getStartDate());
 	    event.setStatus(0);
-	    event.setDepartmentA("桂林市公安局");
-		event.setDepartmentB("七星区公安局");
-		event.setDepartmentC("桂林电子科技大学");
-		event.setDepartmentD("桂林电子科技有限公司");
 	    event.setEventtype(event.getEventtype());
 	    //event.setEventID(0);
 	    System.out.println(event);
-	    boolean success = eventService.publishEvent(event);
+	    success = eventService.publishEvent(event);
+		 } else {
+			 event.setPublisher(event.getPublisher());
+			 event.setDeadline(event.getDeadline());
+			 event.setEndDate("0");
+			 event.setEventContent(event.getEventContent());
+			 event.setEventLevel(event.getEventLevel());
+			 event.setHandler(event.getHandler());
+			 //event.setProgress(event.getHandler()+"正在处理");
+			 event.setStartDate(event.getStartDate());
+			 event.setStatus(0);
+			 event.setEventtype(event.getEventtype());
+			 event.setForwarder("111");
+			 event.setForwarderReceiver("000");
+			 //event.setEventID(0);
+			 System.out.println(event);
+			 success = eventService.publishEvent(event);
+		 }
         //System.out.println("已发布");
 		if(success) {
         return "success";
@@ -131,6 +160,7 @@ public class EventController {
 	
 	//删除事件
 	@RequestMapping("/eventDelete.do")
+	@RolesAllowed({"A","B"})
 	public String deleteEvent(Model model) {
 		
 		int eventID = 2;
@@ -141,15 +171,21 @@ public class EventController {
 
 	//点击转发或者邀请第三方时调整转发事件的页面
 	@RequestMapping("/forwardPage.do")
-	public String forwardPage(Model model,int eventID) {
+	@RolesAllowed({"A","B","C","D"})
+	public String forwardPage(Model model,int eventID) throws Exception {
 
 		Event event = eventService.forwardPage(eventID);
+		List<String> users = userService.getAllUser();
+		List<String> departNames = departmentService.getAllName();
+		model.addAttribute("users",users);
+		model.addAttribute("departNames",departNames);
 		model.addAttribute("event",event);
 		return "event_forward";
 	}
 
 	//转发接到的上级事件
 	@RequestMapping("/forward.do")
+	@RolesAllowed({"A","B","C","D"})
 	public String forwardEvent(Model model,Event event) {
          //System.out.println(event);
 		eventService.updateEventByForward(event);
@@ -159,6 +195,7 @@ public class EventController {
 
 	//邀请第三方机构协助处理
 	@RequestMapping("/invitation.do")
+	@RolesAllowed({"A","B","C","D"})
 	public String invitationThirdParty(Model model,Event event) {
 
 		//System.out.println(eventID);
@@ -167,6 +204,7 @@ public class EventController {
 	}
 
 	@RequestMapping("/detail.do")
+	@RolesAllowed({"A","B","C","D"})
 	public String eventDetail(Model model,int eventID) {
          SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		 User user= (User) context.getAuthentication().getPrincipal();
@@ -174,17 +212,38 @@ public class EventController {
 		 Event dbEvent = eventService.getDetailEvent(eventID);
 		 //System.out.println(userName);
 		//System.out.println(dbEvent);
-		dbEvent.setUserName(userName="UserA2");
-		System.out.println(dbEvent);
+		String roleName = eventService.getRoleNameByUserName(userName);
+		 dbEvent.setRoleName(roleName);
+		//System.out.println(dbEvent);
 		model.addAttribute("event",dbEvent);
 		return "detail";
 	}
 
 	@RequestMapping("/submit.do")
+	@RolesAllowed({"A","B","C","D"})
 	public String submitPage(Model model,Event event) {
 		eventService.submitResult(event);
 		//System.out.println(event);
 		return "success";
+	}
+
+	@RequestMapping("eventAdd.do")
+	@RolesAllowed({"A","B"})
+	public String submitPage(Model model) throws Exception {
+		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
+		User user= (User) context.getAuthentication().getPrincipal();
+		String userName=user.getUsername();
+        List<String> users = userService.getAllUser();
+        List<String> departNames = departmentService.getAllName();
+        String roleName = eventService.getRoleNameByUserName(userName);
+        model.addAttribute("roleName",roleName);
+        model.addAttribute("users",users);
+        model.addAttribute("departNames",departNames);
+       // System.out.println(users);
+        //System.out.println(departNames);
+
+
+		return "event_add";
 	}
 	
 

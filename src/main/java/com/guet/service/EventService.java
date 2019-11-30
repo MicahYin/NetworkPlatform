@@ -17,10 +17,10 @@ public interface EventService {
 	public Page getNotProcessedEventByUsername(String userName, int currentPage);
 
 	//根据用户的名称获取用户需要处理的已处理的事件
-	public Page getHaveProcessedEventByUsername(String userName, int currentPage);
+	public Page getHaveProcessedEventByUsername(String userName, int currentPage) throws Exception;
 
 	//根据用户的名称获取用户需要处理的未处理的事件
-	public Page getHaveNotProcessedEventByUsername(String userName, int currentPage);
+	public Page getHaveNotProcessedEventByUsername(String userName, int currentPage) throws Exception;
 	
 	//用户发布事件
 	public boolean publishEvent(Event event);
@@ -42,4 +42,6 @@ public interface EventService {
 
 	//提交结果
 	public void submitResult(Event event);
+
+	public String getRoleNameByUserName(String userName);
 }

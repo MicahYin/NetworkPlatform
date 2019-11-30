@@ -42,4 +42,7 @@ public interface IDepartmentDao {
      */
     @Insert("insert into department_role(roleId,departmentId) values(#{departTypeStr},(SELECT id FROM department WHERE departName=#{departName})),(6,(SELECT id FROM department WHERE departName=#{departName}))")
     void saveDepartmentRole(Department department) throws Exception;
+
+    @Select("select departName from department")
+    List<String> getAllDepart() throws Exception;
 }

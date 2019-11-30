@@ -109,10 +109,10 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建"
+										<%--<button type="button" class="btn btn-default" title="新建"
 											onclick="location.href='product-add.jsp'">
 											<i class="fa fa-file-o"></i> 删除
-										</button>
+										</button>--%>
 									<%--	<button type="button" class="btn btn-default" title="删除">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
@@ -122,17 +122,19 @@
 										<button type="button" class="btn btn-default" title="屏蔽">
 											<i class="fa fa-ban"></i> 屏蔽
 										</button>--%>
+									<form action="${pageContext.request.contextPath}/update/updateHaveNotProcessedList">
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
+									</form>
 									</div>
 								</div>
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
+									<%--<input type="text" class="form-control input-sm"
 										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+										class="glyphicon glyphicon-search form-control-feedback"></span>--%>
 								</div>
 							</div>
 							<!--工具栏/-->
@@ -163,17 +165,17 @@
 										 <th class="sorting_desc sorting_desc_disabled">发布时间:${event.startDate}</th>
 										 <th class="sorting">截止时间:${event.deadline}</th>
 										 <th class="sorting">事件描述:${event.eventContent}</th>
-										 <th class="sorting">上传处理结果:</th>
-										 <c:if test="${fn:contains(page.userName,'B')}">
+										 <th class="sorting"><a href="${pageContext.request.contextPath}/event/detail.do?eventID=${event.eventID}">事件详情</a></th>
+										 <c:if test="${fn:contains(page.roleName,'B')}">
 										 <c:if test="${event.forwarder==null}">
 											 <th class="sorting"><a href="${pageContext.request.contextPath}/event/forwardPage.do?eventID=${event.eventID}">转发下属受监管用户</a></th>
 										 </c:if>
 										 <c:if test="${event.forwarder!=null}">
-											 <th class="sorting"><a href="javascript:;">已转发${event.forwarderReceiver}处理</a></th>
+											 <th class="sorting"><a href="javascript:;">已转发${event.departmentC}${event.forwarderReceiver}处理</a></th>
 										 </c:if>
 
 										 </c:if>
-										 <c:if test="${fn:contains(page.userName,'C')}">
+										 <c:if test="${fn:contains(page.roleName,'C')}">
 										 <c:if test="${event.thirdparty==null}">
 											 <th class="sorting"><a href="${pageContext.request.contextPath}/event/forwardPage.do?eventID=${event.eventID}">邀请第三方机构协助</a></th>
 										 </c:if>

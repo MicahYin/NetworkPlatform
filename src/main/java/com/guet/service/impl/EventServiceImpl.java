@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.guet.domain.Page;
+import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +22,20 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	IEventDao eventDao;
 
+
 	//查询用户发布的已处理的信息
 	@Override
 	public Page getProcessedEventByUsername(String userName,int currentPage) {
 
 		//分页查询
-		userName = "UserA2";
+		//userName = "UserA2";
 		Page page = new Page();
 		page.setCurrentPage(currentPage);
 		page.setCurrentTotal(5);
 		page.setIndex1((currentPage-1)*5);
 		page.setUserName(userName);
+		String roleName = eventDao.getRoleNameByUserName(userName);
+		page.setRoleName(roleName);
 		List<Event> events = new ArrayList<Event>();
 		events = eventDao.getProcessedEventByUsername(page);
 		int totalCount = eventDao.getProcessPagesNumByUsername(userName);
@@ -52,12 +56,14 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public Page getNotProcessedEventByUsername(String userName,int currentPage) {
 		//分页查询
-		userName = "UserA2";
+		//userName = "UserA2";
 		Page page = new Page();
 		page.setCurrentPage(currentPage);
 		page.setCurrentTotal(5);
 		page.setIndex1((currentPage-1)*5);
 		page.setUserName(userName);
+		String roleName = eventDao.getRoleNameByUserName(userName);
+		page.setRoleName(roleName);
 		List<Event> events = new ArrayList<Event>();
 		events = eventDao.getNotProcessedEventByUsername(page);
 		int totalCount = eventDao.getNotProcessPagesNumByUsername(userName);
@@ -70,24 +76,27 @@ public class EventServiceImpl implements EventService {
 			page.setTotalPage(totalCount/5+1);
 		}
 		page.setProcessedEvents(events);
-		System.out.println(page);
+		//System.out.println(page);
 		return page;
 	}
 
 	//用户接受上级的需要处理的信息，已处理
 	@Override
-	public Page getHaveProcessedEventByUsername(String userName,int currentPage) {
+	public Page getHaveProcessedEventByUsername(String userName,int currentPage) throws Exception {
 
 		//分页查询
+        //userName = "UserB2";
 		Page page = new Page();
 		page.setCurrentPage(currentPage);
 		page.setCurrentTotal(5);
 		page.setIndex1((currentPage-1)*5);
 		page.setUserName(userName);
+		String roleName = eventDao.getRoleNameByUserName(userName);
+		page.setRoleName(roleName);
 		List<Event> events = new ArrayList<Event>();
 		int totalCount;
 		//讨论如果是角色B只需要选择handler是自己的，如果是角色C还需要选择forwardReceiver是自己的,D只需选择第三方属于自己的
-		if(userName.contains("B")) {
+		if(roleName.contains("B")) {
 			events = eventDao.getHaveProcessedEventByUsername(page);
 			totalCount = eventDao.getHaveProcessPagesNumByUsername(userName);
 		}else {
@@ -103,13 +112,13 @@ public class EventServiceImpl implements EventService {
 			page.setTotalPage(totalCount/5+1);
 		}
 		page.setProcessedEvents(events);
-		System.out.println(page);
+		//System.out.println(page);
 		return page;
 	}
 
 	//用户接受上级的需要处理的信息，未处理
 	@Override
-	public Page getHaveNotProcessedEventByUsername(String userName,int currentPage) {
+	public Page getHaveNotProcessedEventByUsername(String userName,int currentPage) throws Exception {
 		//分页查询
 		//userName = "UserB2";
 		Page page = new Page();
@@ -118,6 +127,9 @@ public class EventServiceImpl implements EventService {
 		page.setIndex1((currentPage-1)*5);
 		page.setUserName(userName);
 		List<Event> events = new ArrayList<Event>();
+		String roleName  = eventDao.getRoleNameByUserName(userName);
+		page.setRoleName(roleName);
+		//System.out.println(roleName);
 		int totalCount;
 		//讨论如果是角色B只需要选择handler是自己的，如果是角色C还需要选择forwardReceiver是自己的,D只要选择第三方是自己的
 		if(userName.contains("B")) {
@@ -206,8 +218,10 @@ public class EventServiceImpl implements EventService {
 
         String forwarder = dbEvent.getHandler();
         String forwarderReceiver = event.getForwarderReceiver();
+        String departmentC = event.getDepartmentC();
+        System.out.println(departmentC);
        // System.out.println(evnetID+forwarder+forwarderReceiver);
-        eventDao.updateEventByForward(evnetID,forwarder,forwarderReceiver);
+        eventDao.updateEventByForward(evnetID,forwarder,forwarderReceiver,departmentC);
 
 	}
 
@@ -219,8 +233,10 @@ public class EventServiceImpl implements EventService {
 		//Event dbEvent = eventDao.getEventByID(evnetID);
 		//更新事件的信息
 		String thirdparty = event.getThirdparty();
+		String departmentD = event.getDepartmentD();
+		System.out.println(departmentD);
 		// System.out.println(evnetID+forwarder+forwarderReceiver);
-		eventDao.updateEventByInvitation(evnetID,thirdparty);
+		eventDao.updateEventByInvitation(evnetID,thirdparty,departmentD);
 	}
 
 	//获取事件详情
@@ -237,23 +253,29 @@ public class EventServiceImpl implements EventService {
 		Event dbEvetn = eventDao.getEventByID(eventID);
 		System.out.println(event);
 		String userName = dbEvetn.getPublisher();
+		String roleName = eventDao.getRoleNameByUserName(userName);
 		//System.out.println();
 		//对于用户D
-		if(userName.contains("D")) {
+		if(roleName.contains("D")) {
 		eventDao.updateResultD(event);
-		} else if(userName.contains("C")){
+		} else if(roleName.contains("C")){
 			//对于用户C
 			eventDao.updateResultC(event);
-		} else if(userName.contains("B")) {
+		} else if(roleName.contains("B")) {
 			//对于用户B
 			eventDao.updateResultB(event);
-		} else if(userName.contains("A")) {
+		} else if(roleName.contains("A")) {
 			//对于用户A
 			eventDao.updateResultA(event);
 		} else {
 			System.out.println("用户名错误");
 		}
 
+	}
+
+	public String getRoleNameByUserName(String userName) {
+		String roleName = eventDao.getRoleNameByUserName(userName);
+		return roleName;
 	}
 
 

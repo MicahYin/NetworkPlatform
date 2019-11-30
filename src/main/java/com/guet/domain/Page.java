@@ -26,6 +26,8 @@ public class Page {
     private String forwarderReceiver;
     //获取受邀请的第三方
     private String thirdparty;
+
+    private String roleName;
     //每页显示的内容（已处理的事件）
     private List<Event> processedEvents;
     //每页实现的内容（未处理的事件)
@@ -136,6 +138,14 @@ public class Page {
         this.forwarderReceiver = forwarderReceiver;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     @Override
     public String toString() {
         return "Page{" +
@@ -150,6 +160,7 @@ public class Page {
                 ", forwarder='" + forwarder + '\'' +
                 ", forwarderReceiver='" + forwarderReceiver + '\'' +
                 ", thirdparty='" + thirdparty + '\'' +
+                ", roleName='" + roleName + '\'' +
                 ", processedEvents=" + processedEvents +
                 ", notProcessedEvents=" + notProcessedEvents +
                 '}';

@@ -1,6 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <!-- 页面meta -->
@@ -144,39 +147,71 @@
 							</div>
 						</div>
 
+						<c:if test="${fn:contains(roleName, 'A')}">
 						<div class="col-md-2 title">事件发送方</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
-									name="handler">
-								<option value="桂林市公安局" selected="selected">桂林市公安局(辖区管理单位）</option>
+									name="departmentA">
+								<c:forEach var="item" items="${departNames}">
+								<option value="${item}">${item}</option>
+								</c:forEach>
 							</select>
 						</div>
-                        
+						</c:if>
+
+						<c:if test="${fn:contains(roleName, 'B')}">
+							<div class="col-md-2 title">事件发送方</div>
+							<div class="col-md-4 data">
+								<select class="form-control select2" style="width: 100%"
+										name="departmentB">
+									<c:forEach var="item" items="${departNames}">
+										<option value="${item}">${item}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</c:if>
+
                         <div class="col-md-2 title">事件发送者</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
 								name="publisher">
-								<option value="UserA1" selected="selected">UserA1</option>
-								<option value="UserA2">UserA2</option>
-								<option value="UserA3">UserA3</option>
+								<c:forEach var="item" items="${users}">
+									<option value="${item}">${item}</option>
+								</c:forEach>
 							</select>
 						</div>
 
+						<c:if test="${fn:contains(roleName, 'A')}">
 						<div class="col-md-2 title">事件接收方</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
-									name="handler">
-								<option value="七星区公安局" selected="selected">七星区公安局(辖区管理单位）</option>
+									name="departmentB">
+								<c:forEach var="item" items="${departNames}">
+									<option value="${item}">${item}</option>
+								</c:forEach>
 							</select>
 						</div>
+						</c:if>
+
+						<c:if test="${fn:contains(roleName, 'B')}">
+							<div class="col-md-2 title">事件接收方</div>
+							<div class="col-md-4 data">
+								<select class="form-control select2" style="width: 100%"
+										name="departmentC">
+									<c:forEach var="item" items="${departNames}">
+										<option value="${item}">${item}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</c:if>
 
 						<div class="col-md-2 title">事件接收者</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
 								name="handler">
-								<option value="UserB1" selected="selected">UserB1</option>
-								<option value="UserB2">UserB2</option>
-								<option value="UserB3">UserB3</option>
+								<c:forEach var="item" items="${users}">
+									<option value="${item}" >${item}</option>
+								</c:forEach>
 							</select>
 						</div>
 <!-- 

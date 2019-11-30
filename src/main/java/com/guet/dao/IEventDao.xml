@@ -26,7 +26,7 @@
     <!-- 查询用户需要处理的已处理的事件信息(对于用户C、D） -->
     <select id="getHaveProcessedEventByUsername1" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
         select * from event where (handler=#{userName} or forwarderReceiver=#{userName} or thirdparty=#{userName} or handler=null)
-        and (status=0 or status=null) limit #{index1},#{currentTotal}
+        and (status=1 or status=null) limit #{index1},#{currentTotal}
     </select>
 
     <!-- 查询用户需要处理的未处理的事件信息 (对于用户C、D）-->
@@ -37,8 +37,8 @@
   
   <!-- 发布事件信息 -->
   <insert id="insertEvent" parameterType="com.guet.domain.Event">
-      insert into event(eventContent,eventLevel,startDate,endDate,status,publisher,deadline,handler,eventtype,forward,thirdparth)
-      values(#{eventContent},#{eventLevel},#{startDate},#{endDate},#{status},#{publisher},#{deadline},#{handler},#{eventtype},#{forwarder},#{thirdparth})
+      insert into event(eventContent,eventLevel,startDate,endDate,status,publisher,deadline,handler,eventtype,forwarder,thirdparty,forwarderReceiver,departmentA,departmentB,departmentC)
+      values(#{eventContent},#{eventLevel},#{startDate},#{endDate},#{status},#{publisher},#{deadline},#{handler},#{eventtype},#{forwarder},#{thirdparty},#{forwarderReceiver},#{departmentA},#{departmentB},#{departmentC})
   </insert>
   
    <!-- 删除事件信息 -->
@@ -69,7 +69,7 @@
     <!-- 查询用户需要处理的已处理的事件数量(对于角色C、D) -->
     <select id="getHaveProcessPagesNumByUsername1" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(*) from event where (handler=#{userName} or forwarderReceiver=#{userName} or thirdparty=#{userName} or handler=null)
-        and(status=0 or status=null)
+        and(status=1 or status=null)
     </select>
 
     <!-- 查询用户需要处理的未处理的事件数量(对于角色C、D） -->
@@ -85,12 +85,12 @@
 
     <!--当事件被转发时更新事件内容-->
     <update id="updateEventByForward">
-        update event set forwarder=#{forwarder},forwarderReceiver=#{forwarderReceiver} where eventID = #{eventID}
+        update event set forwarder=#{forwarder},forwarderReceiver=#{forwarderReceiver},departmentC=#{departmentC} where eventID = #{eventID}
     </update>
 
     <!--当事件被转发时更新事件内容-->
     <update id="updateEventByInvitation">
-        update event set thirdparty=#{thirdparty} where eventID = #{eventID}
+        update event set thirdparty=#{thirdparty},departmentD=#{departmentD} where eventID = #{eventID}
     </update>
 
     <!--角色D提交事件结果-->
@@ -109,6 +109,10 @@
     <update id="updateResultA">
         update event set resultA=#{resultA},status=1,resultLevelA=#{resultLevelA} where eventID = #{eventID}
     </update>
+
+    <select id="getRoleNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+       select roleName from role where id in (select roleid from department_role where departmentId in (select departmentId from department_user where userId in (select id from users where userName = #{userName}))) order by roleName limit 1
+    </select>
 
 
 </mapper>

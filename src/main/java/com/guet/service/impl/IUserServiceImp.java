@@ -99,4 +99,12 @@ public class IUserServiceImp implements IUserService {
     public void addRoleToUser(String userId, String[] roleIds) throws Exception {
 
     }
+
+    @Override
+    public List<String> getAllUser() throws Exception {
+        List<String> users = userDao.getAllUser();
+        return users;
+    }
+
+
 }

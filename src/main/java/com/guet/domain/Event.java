@@ -1,7 +1,7 @@
 package com.guet.domain;
 
 public class Event {
-	
+
 	private int eventID;
 	private String eventContent;
 	private String eventLevel;
@@ -16,19 +16,19 @@ public class Event {
 	private String forwarder;
 	private String forwarderReceiver;
 	private String thirdparty;
-	//当前登录的用户名
-	private String userName;
+	//当前登录的角色名
+	private String roleName;
 	private String newOrOld;
 	private String resultLevelB;
 	private String resultLevelA;
-    private String resultA;
-    private String resultB;
-    private String resultC;
-    private String resultD;
-    private String departmentA;
-    private String departmentB;
-    private String departmentC;
-    private String departmentD;
+	private String resultA;
+	private String resultB;
+	private String resultC;
+	private String resultD;
+	private String departmentA;
+	private String departmentB;
+	private String departmentC;
+	private String departmentD;
 
 
 	public int getEventID() {
@@ -42,54 +42,71 @@ public class Event {
 	public String getEventContent() {
 		return eventContent;
 	}
+
 	public void setEventContent(String eventContent) {
 		this.eventContent = eventContent;
 	}
+
 	public String getEventLevel() {
 		return eventLevel;
 	}
+
 	public void setEventLevel(String eventLevel) {
 		this.eventLevel = eventLevel;
 	}
+
 	public String getStartDate() {
 		return startDate;
 	}
+
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
+
 	public String getEndDate() {
 		return endDate;
 	}
+
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
 	public int getStatus() {
 		return status;
 	}
+
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
 	public String getPublisher() {
 		return publisher;
 	}
+
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+
 	public String getDeadline() {
 		return deadline;
 	}
+
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
+
 	public String getProgress() {
 		return progress;
 	}
+
 	public void setProgress(String progress) {
 		this.progress = progress;
 	}
+
 	public String getHandler() {
 		return handler;
 	}
+
 	public void setHandler(String handler) {
 		this.handler = handler;
 	}
@@ -127,12 +144,12 @@ public class Event {
 		this.thirdparty = thirdparty;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 	public String getNewOrOld() {
@@ -240,7 +257,7 @@ public class Event {
 				", forwarder='" + forwarder + '\'' +
 				", forwarderReceiver='" + forwarderReceiver + '\'' +
 				", thirdparty='" + thirdparty + '\'' +
-				", userName='" + userName + '\'' +
+				", roleName='" + roleName + '\'' +
 				", newOrOld='" + newOrOld + '\'' +
 				", resultLevelB='" + resultLevelB + '\'' +
 				", resultLevelA='" + resultLevelA + '\'' +

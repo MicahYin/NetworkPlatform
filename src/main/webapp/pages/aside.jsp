@@ -53,7 +53,7 @@
 				<ul class="treeview-menu">
 
 					<li id="system-setting"><a
-							href="${pageContext.request.contextPath}/pages/event_add.jsp">
+							href="${pageContext.request.contextPath}/event/eventAdd.do">
 						<i class="fa fa-circle-o"></i> 发布预警事件
 					</a></li>
 					<li id="system-setting1"><a

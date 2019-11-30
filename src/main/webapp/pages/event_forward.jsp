@@ -140,25 +140,54 @@
 							<div class="col-md-2 title">转发接收方</div>
 							<div class="col-md-4 data">
 								<select class="form-control select2" style="width: 100%"
-										name="forwarderReceiver">
-									<option value="UserC1" selected="selected">UserC1</option>
-									<option value="UserC2">UserC2</option>
-									<option value="UserC3">UserC3</option>
+										name="departmentC">
+									<c:forEach items="${departNames}" var="item">
+										<option value="${item}">${item}</option>
+									</c:forEach>
 								</select>
 							</div>
 						</c:if>
 
-						<c:if test="${event.forwarder!=null}">
-							<div class="col-md-2 title">邀请第三方</div>
+						<c:if test="${event.forwarder==null}">
+							<div class="col-md-2 title">转发接收者</div>
 							<div class="col-md-4 data">
 								<select class="form-control select2" style="width: 100%"
-										name="thirdparty">
-									<option value="UserD1" selected="selected">UserD1</option>
-									<option value="UserD2">UserD2</option>
-									<option value="UserD3">UserD3</option>
+										name="forwarderReceiver">
+									<c:forEach items="${users}" var="item">
+										<option value="${item}">${item}</option>
+									</c:forEach>
 								</select>
 							</div>
 						</c:if>
+
+
+						<c:if test="${event.forwarder!=null}">
+							<div class="col-md-2 title">第三方机构</div>
+							<div class="col-md-4 data">
+								<select class="form-control select2" style="width: 100%"
+										name="departmentD">
+									<c:forEach items="${departNames}" var="item">
+										<option value="${item}">${item}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</c:if>
+
+
+						<c:if test="${event.forwarder!=null}">
+							<div class="col-md-2 title">第三方用戶名</div>
+							<div class="col-md-4 data">
+								<select class="form-control select2" style="width: 100%"
+										name="thirdparty">
+									<c:forEach items="${users}" var="item">
+										<option value="${item}">${item}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</c:if>
+
+						<div class="col-md-2 title">暂无标签</div>
+						<div class="col-md-4 data"></div>
 
 
 						<!--
