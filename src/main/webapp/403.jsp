@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>网络应急响应平台</title>
-    <meta name="description" content="AdminLTE2定制版">
-    <meta name="keywords" content="AdminLTE2定制版">
+    <meta name="description" content="网络应急响应平台">
+    <meta name="keywords" content="网络应急响应平台">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta

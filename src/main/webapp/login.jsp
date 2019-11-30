@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>数据 - AdminLTE2定制版 | Log in</title>
+<title>网络应急响应平台 | Log in</title>
 
 <meta
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"

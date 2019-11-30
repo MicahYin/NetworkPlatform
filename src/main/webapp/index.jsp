@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>网络应急响应平台</title>
 </head>
 <body>
 <jsp:forward page="/pages/main.jsp"></jsp:forward>

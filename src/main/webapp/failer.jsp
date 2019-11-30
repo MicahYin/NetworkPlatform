@@ -8,9 +8,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>数据 - AdminLTE2定制版</title>
-<meta name="description" content="AdminLTE2定制版">
-<meta name="keywords" content="AdminLTE2定制版">
+<title>网络应急响应平台</title>
+<meta name="description" content="网络应急响应平台">
+<meta name="keywords" content="网络应急响应平台">
 
 <!-- Tell the browser to be responsive to screen width -->
 <meta
@@ -190,42 +190,13 @@
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
-				<ul class="treeview-menu">
-
-					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/user/findAll.do"> <i
-							class="fa fa-circle-o"></i> 用户管理
-					</a></li>
-					<li id="system-setting"><a href="${pageContext.request.contextPath}/role/findAll.do">
-							<i class="fa fa-circle-o"></i> 角色管理
-					</a></li>
-					<li id="system-setting"><a href="${pageContext.request.contextPath}/permission/findAll.do">
-							<i class="fa fa-circle-o"></i> 资源权限管理
-					</a></li>
-					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/sysLog/findAll.do"> <i
-							class="fa fa-circle-o"></i> 访问日志
-					</a></li>
-
-				</ul></li>
+			</li>
 			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
 					<span>基础数据</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
-				<ul class="treeview-menu">
-
-					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/product/findAll.do">
-							<i class="fa fa-circle-o"></i> 产品管理
-					</a></li>
-					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/order/findAll.do?page=1&pageSize=3">
-							<i class="fa fa-circle-o"></i> 订单管理
-					</a></li>
-
-				</ul></li>
-
+			</li>
 		</ul>
 	</section>
 	<!-- /.sidebar -->
@@ -249,16 +220,11 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="error-page">
-				
-
 					<div class="error-content">
-						
 						<p>
 							登录失败 , 你可以 <a href="${pageContext.request.contextPath}/login.jsp">返回到登录页面</a>
 							重新登录
 						</p>
-
-						
 					</div>
 					<!-- /.error-content -->
 				</div>
@@ -273,15 +239,12 @@
 			<div class="pull-right hidden-xs">
 				<b>Version</b> 1.0.8
 			</div>
-			<strong>Copyright &copy; 2014-2017 <a
-				href="http://www.itcast.cn">研究院研发部</a>.
+			<strong>Copyright &copy; 2010-2019 <a
+				href="http://www.guet.edu.cn">桂林电子科技大学</a>.
 			</strong> All rights reserved.
 		</footer>
 		<!-- 底部导航 /-->
-
 	</div>
-
-
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script
