@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/sysLog")
+@RolesAllowed("A")
 public class ISysLogController {
     @Autowired
     private ISysLogService sysLogService;

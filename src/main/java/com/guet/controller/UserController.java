@@ -24,6 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/account")
+@RolesAllowed("A")
 public class UserController {
     @Autowired
     private IUserService userService;
