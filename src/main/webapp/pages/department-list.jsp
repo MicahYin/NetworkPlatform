@@ -153,10 +153,10 @@
 											<td class="text-center">${department.phone }</td>
 											<td class="text-center">${department.securityOfficer }</td>
 											<td class="text-center">${department.securityOfficerPhone }</td>
-											<td class="text-center">
-												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
-											</td>
+											<%--<td class="text-center">--%>
+												<%--<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>--%>
+												<%--<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>--%>
+											<%--</td>--%>
 										</tr>
 									</c:forEach>
 								</tbody>

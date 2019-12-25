@@ -138,7 +138,7 @@
 										<th class="text-center">ID</th>
 										<th class="text-center">角色名称</th>
 										<th class="text-center">描述</th>
-										<th class="text-center">操作</th>
+										<%--<th class="text-center">操作</th>--%>
 									</tr>
 								</thead>
 								<tbody>
@@ -149,10 +149,10 @@
 											<td class="text-center">${role.id }</td>
 											<td class="text-center">${role.roleName }</td>
 											<td class="text-center">${role.roleDesc }</td>
-											<td class="text-center">
-												<a href="${pageContext.request.contextPath}/role/findById.do?id=${role.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/role/findRoleByIdAndAllPermission.do?id=${role.id}" class="btn bg-olive btn-xs">添加权限</a>
-											</td>
+											<%--<td class="text-center">--%>
+												<%--<a href="${pageContext.request.contextPath}/role/findById.do?id=${role.id}" class="btn bg-olive btn-xs">详情</a>--%>
+												<%--<a href="${pageContext.request.contextPath}/role/findRoleByIdAndAllPermission.do?id=${role.id}" class="btn bg-olive btn-xs">添加权限</a>--%>
+											<%--</td>--%>
 										</tr>
 									</c:forEach>
 								</tbody>

@@ -26,7 +26,7 @@ public class DataDisplay {
         int zero=dataDisplayService.findDataStatusZero();
         int one=dataDisplayService.findDataStatusOne();
         mv.addObject("zero",zero);
-        mv.addObject("one",one);
+        mv.addObject    ("one",one);
         mv.setViewName("data-show");
         return mv;
     }

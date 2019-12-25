@@ -28,6 +28,13 @@ public class DepartmentController {
     @Autowired
     private IRoleDao roleDao;
 
+    /**
+     * 查询所有单位
+     * @param page
+     * @param size
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/findAll.do")
     public ModelAndView findAll(@RequestParam(name = "page",required = true,defaultValue = "1") Integer page,
                                 @RequestParam(name = "size",required = true,defaultValue = "4") Integer size) throws Exception{
@@ -39,6 +46,11 @@ public class DepartmentController {
         return mv;
     }
 
+    /**
+     * 转跳到部门添加界面
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/add.do")
     public ModelAndView add() throws Exception{
         ModelAndView mv = new ModelAndView();
@@ -47,6 +59,13 @@ public class DepartmentController {
         mv.setViewName("department-add");
         return mv;
     }
+
+    /**
+     * 将添加的部门存入数据库
+     * @param department
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/save.do")
     public String save(Department department) throws Exception{
         departmentService.save(department);
