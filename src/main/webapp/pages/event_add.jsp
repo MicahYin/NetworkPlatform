@@ -152,9 +152,7 @@
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
 									name="departmentA">
-								<c:forEach var="item" items="${departNames}">
-								<option value="${item}">${item}</option>
-								</c:forEach>
+								<option value="${departName}">${departName}</option>
 							</select>
 						</div>
 						</c:if>
@@ -164,9 +162,7 @@
 							<div class="col-md-4 data">
 								<select class="form-control select2" style="width: 100%"
 										name="departmentB">
-									<c:forEach var="item" items="${departNames}">
-										<option value="${item}">${item}</option>
-									</c:forEach>
+										<option value="${departName}">${departName}</option>
 								</select>
 							</div>
 						</c:if>
@@ -175,9 +171,7 @@
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%"
 								name="publisher">
-								<c:forEach var="item" items="${users}">
-									<option value="${item}">${item}</option>
-								</c:forEach>
+									<option value="${userName}">${userName}</option>
 							</select>
 						</div>
 

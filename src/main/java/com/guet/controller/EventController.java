@@ -33,6 +33,9 @@ public class EventController {
 	@RolesAllowed({"A","B"})
 	public String getProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
+		if(currentPage==0) {
+			currentPage = 1;
+		}
 		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user= (User) context.getAuthentication().getPrincipal();
 		String userName=user.getUsername();
@@ -53,6 +56,9 @@ public class EventController {
 	@RolesAllowed({"A","B"})
 	public String getNotProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
+		if(currentPage==0) {
+			currentPage = 1;
+		}
 		SecurityContext context = SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user = (User) context.getAuthentication().getPrincipal();
 		String userName = user.getUsername();
@@ -72,6 +78,9 @@ public class EventController {
 	@RolesAllowed({"A","B","C","D"})
 	public String getHaveProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
+		if(currentPage==0) {
+			currentPage = 1;
+		}
 		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user= (User) context.getAuthentication().getPrincipal();
 		String userName=user.getUsername();
@@ -92,6 +101,9 @@ public class EventController {
 	@RolesAllowed({"A","B","C","D"})
 	public String getHaveNotProcessedEventByUserName(Model model,int currentPage) throws Exception {
 		//获取用户名
+		if(currentPage==0) {
+			currentPage = 1;
+		}
 		SecurityContext context = SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user = (User) context.getAuthentication().getPrincipal();
 		String userName = user.getUsername();
@@ -128,6 +140,7 @@ public class EventController {
 		event.setStartDate(event.getStartDate());
 	    event.setStatus(0);
 	    event.setEventtype(event.getEventtype());
+	    event.setProgress("未处理");
 	    //event.setEventID(0);
 	    System.out.println(event);
 	    success = eventService.publishEvent(event);
@@ -141,16 +154,17 @@ public class EventController {
 			 //event.setProgress(event.getHandler()+"正在处理");
 			 event.setStartDate(event.getStartDate());
 			 event.setStatus(0);
+			 event.setProgress("未处理");
 			 event.setEventtype(event.getEventtype());
-			 event.setForwarder("111");
-			 event.setForwarderReceiver("000");
+			 event.setForwarder(event.getPublisher());
+			 event.setForwarderReceiver(event.getHandler());
 			 //event.setEventID(0);
 			 System.out.println(event);
 			 success = eventService.publishEvent(event);
 		 }
         //System.out.println("已发布");
 		if(success) {
-        return "success";
+        return "redirect:/event/eventNotProcessedList.do?currentPage=1";
 		} else {
 			return "error";
 		}
@@ -173,10 +187,15 @@ public class EventController {
 	@RequestMapping("/forwardPage.do")
 	@RolesAllowed({"A","B","C","D"})
 	public String forwardPage(Model model,int eventID) throws Exception {
-
+		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
+		User user= (User) context.getAuthentication().getPrincipal();
+		String userName=user.getUsername();
 		Event event = eventService.forwardPage(eventID);
-		List<String> users = userService.getAllUser();
-		List<String> departNames = departmentService.getAllName();
+		List<String> users = userService.getAllUser(userName);
+		List<String> departNames = departmentService.getAllName(userName);
+		String departName = departmentService.getDepartNameByUsername(userName);
+		model.addAttribute("departName",departName);
+		model.addAttribute("userName",userName);
 		model.addAttribute("users",users);
 		model.addAttribute("departNames",departNames);
 		model.addAttribute("event",event);
@@ -189,7 +208,7 @@ public class EventController {
 	public String forwardEvent(Model model,Event event) {
          //System.out.println(event);
 		eventService.updateEventByForward(event);
-		return "success";
+		return "redirect:/event/eventHaveNotProcessedList.do?currentPage=1";
 	}
 
 
@@ -200,7 +219,7 @@ public class EventController {
 
 		//System.out.println(eventID);
 		eventService.updateEventByInvitation(event);
-		return "success";
+		return "redirect:/event/eventHaveNotProcessedList.do?currentPage=1";
 	}
 
 	@RequestMapping("/detail.do")
@@ -210,6 +229,9 @@ public class EventController {
 		 User user= (User) context.getAuthentication().getPrincipal();
 		 String userName=user.getUsername();
 		 Event dbEvent = eventService.getDetailEvent(eventID);
+		 String userId = dbEvent.getPublisher();
+		 if(!userId.equals(userName)) {
+		 eventService.updataProgress(eventID); }
 		 //System.out.println(userName);
 		//System.out.println(dbEvent);
 		String roleName = eventService.getRoleNameByUserName(userName);
@@ -222,9 +244,16 @@ public class EventController {
 	@RequestMapping("/submit.do")
 	@RolesAllowed({"A","B","C","D"})
 	public String submitPage(Model model,Event event) {
+		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
+		User user= (User) context.getAuthentication().getPrincipal();
+		String userName=user.getUsername();
 		eventService.submitResult(event);
 		//System.out.println(event);
-		return "success";
+		Event dbevent = eventService.getDetailEvent(event.getEventID());
+		if(userName.equals(dbevent.getPublisher())) {
+			return "redirect:/event/eventProcessedList.do?currentPage=1";
+		}
+		return "redirect:/event/eventHaveProcessedList.do?currentPage=1";
 	}
 
 	@RequestMapping("eventAdd.do")
@@ -233,9 +262,12 @@ public class EventController {
 		SecurityContext context= SecurityContextHolder.getContext();//从上下文中获取了当前登录的用户
 		User user= (User) context.getAuthentication().getPrincipal();
 		String userName=user.getUsername();
-        List<String> users = userService.getAllUser();
-        List<String> departNames = departmentService.getAllName();
+        List<String> users = userService.getAllUser(userName);
+        List<String> departNames = departmentService.getAllName(userName);
         String roleName = eventService.getRoleNameByUserName(userName);
+		String departName = departmentService.getDepartNameByUsername(userName);
+		model.addAttribute("departName",departName);
+		model.addAttribute("userName",userName);
         model.addAttribute("roleName",roleName);
         model.addAttribute("users",users);
         model.addAttribute("departNames",departNames);

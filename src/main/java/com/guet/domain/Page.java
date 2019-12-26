@@ -33,7 +33,6 @@ public class Page {
     //每页实现的内容（未处理的事件)
     private List<Event> notProcessedEvents;
 
-
     public int getCurrentTotal() {
         return currentTotal;
     }

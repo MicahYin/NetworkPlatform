@@ -73,4 +73,6 @@ public interface IEventDao {
 	public void updateResultA(Event event);
 
 	public String getRoleNameByUserName(String userName);
+
+	public void updateProgress(int eventID);
 }

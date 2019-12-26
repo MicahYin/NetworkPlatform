@@ -101,8 +101,8 @@ public class IUserServiceImp implements IUserService {
     }
 
     @Override
-    public List<String> getAllUser() throws Exception {
-        List<String> users = userDao.getAllUser();
+    public List<String> getAllUser(String userName) throws Exception {
+        List<String> users = userDao.getAllUser(userName);
         return users;
     }
 

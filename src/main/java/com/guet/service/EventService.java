@@ -44,4 +44,6 @@ public interface EventService {
 	public void submitResult(Event event);
 
 	public String getRoleNameByUserName(String userName);
+
+	public void updataProgress(int eventID);
 }

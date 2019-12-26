@@ -43,6 +43,16 @@ public interface IDepartmentDao {
     @Insert("insert into department_role(roleId,departmentId) values(#{departTypeStr},(SELECT id FROM department WHERE departName=#{departName})),(6,(SELECT id FROM department WHERE departName=#{departName}))")
     void saveDepartmentRole(Department department) throws Exception;
 
-    @Select("select departName from department")
-    List<String> getAllDepart() throws Exception;
+    /*@Select("select departName from department")*/
+    @Select("select departName from department where id in" +
+            "(select departmentId from department_role where roleId =" +
+            "(select roleId+1 roleId from department_role where departmentId in " +
+            "(select departmentid departmentId from department_user where userId = " +
+            "(select id from users where username=#{userName})) ORDER BY roleId limit 1))")
+    List<String> getAllDepart(String userName) throws Exception;
+
+    @Select("select departName from department where id =" +
+            "(select departmentid departmentId from department_user where userId = " +
+            "(select id from users where username=#{userName}))")
+    String getDepartNameByUsername(String userName);
 }

@@ -26,7 +26,7 @@ public interface IUserService extends UserDetailsService {
 
     void addRoleToUser(String userId, String[] roleIds)throws Exception;
 
-    List<String> getAllUser() throws Exception;
+    List<String> getAllUser(String userName) throws Exception;
 
 
 }

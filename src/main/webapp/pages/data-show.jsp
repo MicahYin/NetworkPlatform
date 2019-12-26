@@ -229,8 +229,10 @@
                     type: 'pie',
                     radius: '55%',
                     data:[
-                        {value:${one}, name:'已处理事件'},
-                        {value:${zero}, name:'未处理事件'}
+                        {value:${one}, name:'正在处理事件'},
+                        {value:${zero}, name:'未处理事件'},
+                        {value:${two}, name:'已通报事件'},
+                        {value:${three}, name:'已处理事件'}
                     ]
                 }
             ],

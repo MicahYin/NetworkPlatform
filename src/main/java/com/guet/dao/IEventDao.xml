@@ -5,40 +5,40 @@
   
   <!-- 查询用户已发布的已处理的事件信息 -->
   <select id="getProcessedEventByUsername" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
-      select * from event where (publisher=#{userName} or publisher=null) and (status=1 or status=null) limit #{index1},#{currentTotal}
+      select * from event where (publisher=#{userName} or publisher=null) and (status=1 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
   </select>
   
   <!-- 查询用户已发布的未处理的事件信息 -->
    <select id="getNotProcessedEventByUsername" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
-      select * from event where (publisher=#{userName} or publisher=null) and (status=0 or status=null) limit #{index1},#{currentTotal}
+      select * from event where (publisher=#{userName} or publisher=null) and (status=0 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
   </select>
 
     <!-- 查询用户需要处理的已处理的事件信息(对于用户B） -->
     <select id="getHaveProcessedEventByUsername" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
-        select * from event where (handler=#{userName} or handler=null) and (status=1 or status=null) limit #{index1},#{currentTotal}
+        select * from event where (handler=#{userName} or handler=null) and (status=1 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
     </select>
 
     <!-- 查询用户需要处理的未处理的事件信息 (对于用户B）-->
     <select id="getHaveNotProcessedEventByUsername" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
-        select * from event where (handler=#{userName} or handler=null) and (status=0 or status=null) limit #{index1},#{currentTotal}
+        select * from event where (handler=#{userName} or handler=null) and (status=0 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
     </select>
 
     <!-- 查询用户需要处理的已处理的事件信息(对于用户C、D） -->
     <select id="getHaveProcessedEventByUsername1" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
         select * from event where (handler=#{userName} or forwarderReceiver=#{userName} or thirdparty=#{userName} or handler=null)
-        and (status=1 or status=null) limit #{index1},#{currentTotal}
+        and (status=1 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
     </select>
 
     <!-- 查询用户需要处理的未处理的事件信息 (对于用户C、D）-->
     <select id="getHaveNotProcessedEventByUsername1" parameterType="com.guet.domain.Page" resultType="com.guet.domain.Event">
         select * from event where (handler=#{userName} or forwarderReceiver=#{userName} or thirdparty=#{userName} or handler=null)
-        and(status=0 or status=null) limit #{index1},#{currentTotal}
+        and(status=0 or status=null) ORDER BY startDate DESC limit #{index1},#{currentTotal}
     </select>
   
   <!-- 发布事件信息 -->
   <insert id="insertEvent" parameterType="com.guet.domain.Event">
-      insert into event(eventContent,eventLevel,startDate,endDate,status,publisher,deadline,handler,eventtype,forwarder,thirdparty,forwarderReceiver,departmentA,departmentB,departmentC)
-      values(#{eventContent},#{eventLevel},#{startDate},#{endDate},#{status},#{publisher},#{deadline},#{handler},#{eventtype},#{forwarder},#{thirdparty},#{forwarderReceiver},#{departmentA},#{departmentB},#{departmentC})
+      insert into event(eventContent,eventLevel,startDate,endDate,status,publisher,deadline,handler,eventtype,forwarder,thirdparty,forwarderReceiver,departmentA,departmentB,departmentC,progress)
+      values(#{eventContent},#{eventLevel},#{startDate},#{endDate},#{status},#{publisher},#{deadline},#{handler},#{eventtype},#{forwarder},#{thirdparty},#{forwarderReceiver},#{departmentA},#{departmentB},#{departmentC},#{progress})
   </insert>
   
    <!-- 删除事件信息 -->
@@ -95,24 +95,28 @@
 
     <!--角色D提交事件结果-->
     <update id="updateResultD">
-        update event set resultD=#{resultD} where eventID = #{eventID}
+        update event set resultD=#{resultD},status=1,progress=#{progress} where eventID = #{eventID}
     </update>
     <!--角色C提交事件结果-->
     <update id="updateResultC">
-        update event set resultC=#{resultC} where eventID = #{eventID}
+        update event set resultC=#{resultC},status=1,progress=#{progress} where eventID = #{eventID}
     </update>
     <!--角色D提交事件结果-->
     <update id="updateResultB">
-        update event set resultB=#{resultB},resultLevelB=#{resultLevelB} where eventID = #{eventID}
+        update event set resultB=#{resultB},status=1,resultLevelB=#{resultLevelB},progress=#{progress} where eventID = #{eventID}
     </update>
     <!--角色D提交事件结果-->
     <update id="updateResultA">
-        update event set resultA=#{resultA},status=1,resultLevelA=#{resultLevelA} where eventID = #{eventID}
+        update event set resultA=#{resultA},status=1,resultLevelA=#{resultLevelA},progress=#{progress} where eventID = #{eventID}
     </update>
 
     <select id="getRoleNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
        select roleName from role where id in (select roleid from department_role where departmentId in (select departmentId from department_user where userId in (select id from users where userName = #{userName}))) order by roleName limit 1
     </select>
+
+    <update id="updateProgress">
+        update event set progress = "正在处理" WHERE eventID = #{eventID}
+    </update>
 
 
 </mapper>

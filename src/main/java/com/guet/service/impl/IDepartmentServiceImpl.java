@@ -39,11 +39,16 @@ public class IDepartmentServiceImpl implements IDepartmentService{
     }
 
     @Override
-    public List<String> getAllName() throws Exception {
+    public List<String> getAllName(String userName) throws Exception {
 
-        List<String> departNames = departmentDao.getAllDepart();
+        List<String> departNames = departmentDao.getAllDepart(userName);
         return departNames;
     }
 
 
+    @Override
+    public String getDepartNameByUsername(String userName) throws Exception {
+       String departName = departmentDao.getDepartNameByUsername(userName);
+        return departName;
+    }
 }

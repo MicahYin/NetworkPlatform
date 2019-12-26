@@ -185,15 +185,21 @@
 						<c:if test="${event.status==1}">
 						<div class="col-md-2 title">进展情况</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="progress"
-								   value="已完成" readonly="readonly" >
+							<select class="form-control select2" style="width: 100%"
+									name="progress">
+							<option value="${event.progress}">${event.progress}</option>
+							<option value="已处理">未处理</option>
+							<option value="已处理">正在处理</option>
+							<option value="已通报">已通报</option>
+							<option value="已处理">已处理</option>
+							</select>
 						</div>
 						</c:if>
 
 						<c:if test="${event.status==0}">
 							<div class="col-md-2 title">进展情况</div>
 							<div class="col-md-4 data">
-						<c:if test="${fn:contains(event.roleName,'A')}">
+						<%--<c:if test="${fn:contains(event.roleName,'A')}">
 							<c:if test="${event.forwarder==null}">
 
 								<input type="text" class="form-control" name="progress"
@@ -249,8 +255,43 @@
 							<c:if test="${fn:contains(event.roleName,'D')}">
 								<input type="text" class="form-control" name="progress"
 									   value="受${event.forwarderReceiver}邀请参与处理" readonly="readonly" >
-							</c:if>
-						</div>
+							</c:if>--%>
+							<%--<input type="text" class="form-control" name="progress"
+								   value="${event.progress}">--%>
+
+							<select class="form-control select2" style="width: 100%"
+									name="progress">
+								<c:if test="${fn:contains(event.roleName,'A')}">
+									<option value="${event.progress}">${event.progress}</option>
+									<option value="已处理">未处理</option>
+									<option value="已处理">正在处理</option>
+								    <option value="已通报">已通报</option>
+								    <option value="已处理">已处理</option>
+								</c:if>
+								<c:if test="${fn:contains(event.roleName,'B')}">
+									<option value="${event.progress}">${event.progress}</option>
+									<option value="已处理">未处理</option>
+									<option value="已处理">正在处理</option>
+									<option value="已通报">已通报</option>
+									<option value="已处理">已处理</option>
+								</c:if>
+								<c:if test="${fn:contains(event.roleName,'C')}">
+									<option value="${event.progress}">${event.progress}</option>
+									<option value="已处理">未处理</option>
+									<option value="已处理">正在处理</option>
+									<option value="已通报">已通报</option>
+									<option value="已处理">已处理</option>
+								</c:if>
+								<c:if test="${fn:contains(event.roleName,'D')}">
+									<option value="${event.progress}">${event.progress}</option>
+									<option value="已处理">未处理</option>
+									<option value="已处理">正在处理</option>
+									<option value="已通报">已通报</option>
+									<option value="已处理">已处理</option>
+								</c:if>
+							</select>
+
+							</div>
 						</c:if>
 
 
@@ -258,7 +299,7 @@
 						<div class="col-md-4 data">
 							<c:if test="${event.resultLevelA!=null}">
 							<input type="text" class="form-control" name="resultLevelA"
-									value="${event.resultLevelA}" readonly="readonly" >
+									value="${event.resultLevelA}">
 							</c:if>
 							<c:if test="${event.resultLevelA==null}">
 								<c:if test="${fn:contains(event.roleName,'B' )}">
@@ -268,7 +309,7 @@
 								</c:if>
 								<c:if test="${event.forwarderReceiver==null}">
 								<input type="text" class="form-control" name="resultLevelB"
-									   value="${event.resultLevelB}" readonly="readonly">
+									   value="${event.resultLevelB}">
 								</c:if>
 								</c:if>
 								<c:if test="${fn:contains(event.roleName,'A' )}">
@@ -298,9 +339,39 @@
 
 							<c:if test="${event.status==1}">
                             <div class="col-md-2 title rowHeight2x">处理结果</div>
+							<c:if test="${fn:contains(event.roleName,'A' )}">
                             <div class="col-md-10 data rowHeight2x">
                                 <textarea class="form-control" rows="3" placeholder="处理结果"
-                                          name="resultA" readonly="readonly">${event.resultA}</textarea>
+                                          name="resultA" >${event.resultB}</textarea>
+							</c:if>
+							<c:if test="${fn:contains(event.roleName,'B' )}">
+								<div class="col-md-10 data rowHeight2x">
+								<c:if test="${empty event.resultB}">
+                                <textarea class="form-control" rows="3" placeholder="处理结果"
+										  name="resultB" >${event.resultC}</textarea>
+								</c:if>
+								<c:if test="${not empty event.resultB}">
+                                <textarea class="form-control" rows="3" placeholder="处理结果"
+										  name="resultB">${event.resultB}</textarea>
+								</c:if>
+							</c:if>
+							<c:if test="${fn:contains(event.roleName,'C' )}">
+							<c:if test="${empty event.resultC}">
+							    <div class="col-md-10 data rowHeight2x">
+                                     <textarea class="form-control" rows="3" placeholder="处理结果"
+										  name="resultC">${event.resultD}</textarea>
+							</c:if>
+							<c:if test="${not empty event.resultC}">
+								<div class="col-md-10 data rowHeight2x">
+                                <textarea class="form-control" rows="3" placeholder="处理结果"
+										  name="resultC">${event.resultC}</textarea>
+							</c:if>
+							</c:if>
+							<c:if test="${fn:contains(event.roleName,'D' )}">
+								<div class="col-md-10 data rowHeight2x">
+                                <textarea class="form-control" rows="3" placeholder="处理结果"
+										  name="resultD">${event.resultD}</textarea>
+							</c:if>
                             </div>
                             </c:if>
 
@@ -353,11 +424,19 @@
                                 <button type="submit" class="btn bg-maroon">上报</button>
                             </c:if>
                             <c:if test="${fn:contains(event.roleName,'B' )}">
+								<c:if test="${fn:contains(event.publisher,'A' )}">
                                 <button type="submit" class="btn bg-maroon">上报</button>
+								</c:if>
+								<c:if test="${fn:contains(event.publisher,'B' )}">
+									<button type="submit" class="btn bg-maroon">确认</button>
+								</c:if>
                             </c:if>
                             <c:if test="${fn:contains(event.roleName,'A' )}">
                                 <button type="submit" class="btn bg-maroon">确认</button>
                             </c:if>
+							</c:if>
+							<c:if test="${event.status==1}">
+								<button type="submit" class="btn bg-maroon">确认</button>
 							</c:if>
                             <button type="button" class="btn bg-default"
                                     onclick="history.back(-1);">返回</button>

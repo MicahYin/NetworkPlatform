@@ -163,7 +163,7 @@
 										 <th class="sorting_asc sorting_asc_disabled">事件级别:${event.eventLevel}</th>
 										 <th class="sorting_desc sorting_desc_disabled">发布时间:${event.startDate}</th>
 										 <th class="sorting">处理完成时间:${event.deadline}</th>
-										 <th class="sorting">处理结果:已完成</th>
+										 <th class="sorting">处理结果:${event.progress}</th>
 										 <th class="sorting"><a href="${pageContext.request.contextPath}/event/detail.do?eventID=${event.eventID}">事件详情</a></th>
 										 <!-- <th class="text-center sorting">状态</th>
                                          <th class="text-center">操作</th> -->

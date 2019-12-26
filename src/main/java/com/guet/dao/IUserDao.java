@@ -52,7 +52,13 @@ public interface IUserDao {
     @Insert("insert into department_user(departmentId,userId) values(#{department},(SELECT id FROM users WHERE username=#{username}))")
     void saveUserDepartment(UserInfo user) throws Exception;
 
-    @Select("select username from users")
-    List<String> getAllUser() throws Exception;
+    /*@Select("select username from users")*/
+    @Select("select username from users where id in " +
+            "(select userId from department_user where departmentId in " +
+            "(select departmentId from department_role where roleId =" +
+            "(select roleId+1 roleId from department_role where departmentId in " +
+            "(select departmentid departmentId from department_user where userId = " +
+            "(select id from users where username=#{userName})) ORDER BY roleId limit 1)))")
+    List<String> getAllUser(String userName) throws Exception;
 
 }

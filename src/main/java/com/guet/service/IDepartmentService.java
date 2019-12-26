@@ -33,5 +33,7 @@ public interface IDepartmentService {
      */
     List<Department> findAll() throws Exception;
 
-    List<String> getAllName() throws Exception;
+    List<String> getAllName(String userName) throws Exception;
+
+    String getDepartNameByUsername(String userName) throws Exception;
 }

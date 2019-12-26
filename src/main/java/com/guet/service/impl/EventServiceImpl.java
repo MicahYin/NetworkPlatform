@@ -10,11 +10,15 @@ import java.util.List;
 import com.guet.domain.Page;
 import com.guet.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.User;
 
 import com.guet.dao.IEventDao;
 import com.guet.domain.Event;
 import com.guet.service.EventService;
+
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -252,8 +256,12 @@ public class EventServiceImpl implements EventService {
 		int eventID = event.getEventID();
 		Event dbEvetn = eventDao.getEventByID(eventID);
 		System.out.println(event);
-		String userName = dbEvetn.getPublisher();
+		//String userName = dbEvetn.getPublisher();
+		SecurityContext context = SecurityContextHolder.getContext();
+		User user= (User) context.getAuthentication().getPrincipal();
+		String userName=user.getUsername();
 		String roleName = eventDao.getRoleNameByUserName(userName);
+		System.out.println(roleName);
 		//System.out.println();
 		//对于用户D
 		if(roleName.contains("D")) {
@@ -278,5 +286,12 @@ public class EventServiceImpl implements EventService {
 		return roleName;
 	}
 
-
+	@Override
+	public void updataProgress(int eventID) {
+		Event event = eventDao.getEventByID(eventID);
+		String progress = event.getProgress();
+		int status = event.getStatus();
+		if(progress.equals("未处理") && status == 0) {
+		eventDao.updateProgress(eventID); }
+	}
 }
